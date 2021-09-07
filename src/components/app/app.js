@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
 import PostStatusFilter from '../post-status-filter';
@@ -7,25 +7,62 @@ import PostAddForm from '../post-add-form';
 
 import './app.css'
 
-const App = () => {
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data : [
+        {label: "Иди гулять", important: true, id: 1},
+        {label: "Выгулять собаку", important: false, id: 2},
+        {label: "Не забыть Руби", important: false, id: 3}
+      ]
+    };
+    this.deleteItem = this.deleteItem.bind(this);
+    this.addItem = this.deleteItem.bind(this);
 
-  const data = [
-    {label: "Иди гулять", important: true},
-    {label: "Выгулять собаку", important: false},
-    {label: "Не забыть Руби", important: false}
-  ];
+    this.maxId = 4;
+  }
 
-  return (
-    <div>
-      <AppHeader/>
-      <div className="search-panel d-flex">
-        <SearchPanel/>
-        <PostStatusFilter/>
+  deleteItem(id) {
+    this.setState(({data}) => {
+      const index = data.findIndex(elem => elem.id === id)
+      const before = data.slice(0, index);
+      const after = data.slice(index +1);
+
+      const newArray = [...before, ...after];
+      return {
+        data: newArray
+      }
+    });
+  }
+
+  addItem(body) {
+    const newItem = {
+      label: body,
+      important: false,
+      id: this.maxId++
+    }
+    this.setState(({data}) => {
+      const newArray = [...data, newItem];
+      return {
+        data: newArray
+      }
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <AppHeader/>
+        <div className="search-panel d-flex">
+          <SearchPanel/>
+          <PostStatusFilter/>
+        </div>
+        <PostList posts={this.state.data}
+        onDelete={this.deleteItem}/>
+        <PostAddForm
+        onAdd={this.addItem}/>
       </div>
-      <PostList posts={data}/>
-      <PostAddForm/>
-    </div>
-  )
+    )
+  }
 }
-
-export default App;
