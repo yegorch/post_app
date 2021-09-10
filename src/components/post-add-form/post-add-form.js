@@ -20,3 +20,4 @@ const PostAddForm = ({onAdd}) => {
 }
 
 export default PostAddForm;
+

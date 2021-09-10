@@ -18,7 +18,7 @@ export default class App extends Component {
       ]
     };
     this.deleteItem = this.deleteItem.bind(this);
-    this.addItem = this.deleteItem.bind(this);
+    this.addItem = this.addItem.bind(this);
 
     this.maxId = 4;
   }
@@ -47,7 +47,7 @@ export default class App extends Component {
       return {
         data: newArray
       }
-    })
+    });
   }
 
   render() {
