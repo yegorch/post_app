@@ -16,7 +16,8 @@ export default class App extends Component {
             data : [
                 {label: 'Учить Angular', important: true, like: false, id: 1},
                 {label: 'Учить SQL', important: false, like: false, id: 2},
-                {label: 'Не забыть руби', important: false, like: false, id: 3}
+                {label: 'Не забыть руби', important: false, like: false, id: 3},
+                {label: 'Перенести на новый React', important: false, like: false, id: 4}
             ],
             term: '',
             filter: 'all'
